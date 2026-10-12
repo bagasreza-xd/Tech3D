@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech3D | Platform Pembelajaran Autodesk Inventor & CAD Viewer</title>
+  <meta name="description" content="Platform pembelajaran Autodesk Inventor interaktif: kuasai sketsa 2D parametrik, pemodelan 3D solid modeling, perakitan assembly, hingga gambar kerja 2D standar ISO dengan 3D Web CAD viewer terintegrasi.">
+  
+  <!-- Tailwind CSS CDN for rapid utility classes -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: ['class', '[data-theme="dark"]'],
+      theme: {
+        extend: {
+          colors: {
+            cadDark: '#0a1410',
+            cadSurface: '#0d1a14',
+            cadCard: '#12201a',
+            cadCardHover: '#16261f',
+            cadBorder: '#1f3a2e',
+            neon: '#00e676',
+            neonHover: '#10f082',
+            neonGlow: 'rgba(0, 230, 118, 0.4)',
+            textSec: '#a3b8ad',
+            textMuted: '#627b70'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Space Grotesk', 'Poppins', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Three.js & OrbitControls CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- Custom Design System CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-cadDark text-white selection:bg-[#00e676]/30 selection:text-[#00e676]">
+
+  <!-- CAD Blueprint Background Grid & Glow -->
+  <div class="cad-grid-bg" aria-hidden="true"></div>
+  <div class="cad-ambient-glow" aria-hidden="true"></div>
+
+  <!-- ==========================================================================
+       VIEW 1: HALAMAN BERANDA (LANDING PAGE)
+       ========================================================================== -->
+  <div id="view-landing" class="relative z-10 flex flex-col min-h-screen">
+    
+    <!-- Top Navbar Beranda -->
+    <header class="site-header">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        
+        <!-- Logo Kiri: Ikon Kubus 3D + Tech3D + Subtitle -->
+        <a href="#" onclick="switchView('landing'); return false;" class="flex items-center gap-3.5 group text-decoration-none">
+          <div class="w-11 h-11 rounded-xl bg-[#12201a] border border-[#00e676]/40 flex items-center justify-center text-[#00e676] shadow-[0_0_15px_rgba(0,230,118,0.25)] group-hover:shadow-[0_0_25px_rgba(0,230,118,0.5)] group-hover:border-[#00e676] transition-all">
+            <i data-lucide="box" class="w-6 h-6 transform group-hover:rotate-12 transition-transform duration-300"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-heading font-extrabold text-xl tracking-tight text-white group-hover:text-[#00e676] transition-colors">Tech3D</span>
+              <span class="inline-block w-1.5 h-1.5 rounded-full bg-[#00e676] shadow-[0_0_8px_#00e676]"></span>
+            </div>
+            <div class="text-[0.68rem] font-mono tracking-widest text-[#8fa89b] uppercase -mt-0.5">CAD & AR VIEWER</div>
+          </div>
+        </a>
+
+
+
+      </div>
+    </header>
+
+    <!-- Hero Section (2 Kolom: Kiri Teks, Kanan 3D CAD Mockup Viewer) -->
+    <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-14 flex flex-col justify-center">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+        
+        <!-- KOLOM KIRI (Teks, Tombol CTA, Chip, & Statistik) -->
+        <div class="lg:col-span-6 flex flex-col items-start text-left">
+          
+
+          <!-- Judul Besar 3 Baris -->
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-[1.18] tracking-tight font-heading">
+            Kuasai <span class="text-neon">Autodesk Inventor</span><br>
+            dari <span class="text-neon">Part Modeling</span>, <span class="text-neon">Assembly</span>,<br>
+            hingga <span class="text-neon">Engineering Drawing</span>
+          </h1>
+
+          <!-- Deskripsi Ringkas & Padat -->
+          <p class="mt-5 text-base sm:text-lg text-[#a3b8ad] leading-relaxed max-w-xl">
+            Pelajari pengenalan fitur Autodesk Inventor, pengerjaan Jobsheet / LKM, hingga pembuatan bentuk part 3D secara praktis dan berstandar industri.
+          </p>
+
+          <!-- Tombol Utama "Mulai Panduan →" -->
+          <div class="mt-8 flex flex-wrap items-center gap-4">
+            <button onclick="switchView('app', 'features')" class="btn-neon text-base px-8 py-3.5 shadow-[0_0_30px_rgba(0,230,118,0.45)] flex items-center gap-3">
+              <span class="font-bold">Mulai Panduan</span>
+              <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            </button>
+          </div>
+
+
+        </div>
+
+        <!-- KOLOM KANAN (Mockup Preview 3D CAD Viewer Window) -->
+        <div class="lg:col-span-6">
+          <div class="cad-window">
+            
+            <!-- Title Bar Window -->
+            <div class="cad-titlebar">
+              <div class="flex items-center gap-3">
+                <div class="window-dots">
+                  <span class="w-dot w-dot-red"></span>
+                  <span class="w-dot w-dot-yellow"></span>
+                  <span class="w-dot w-dot-green"></span>
+                </div>
+                <div class="flex items-center gap-1.5 text-[#a3b8ad]">
+                  <i data-lucide="file-cog" class="w-3.5 h-3.5 text-[#00e676]"></i>
+                  <span class="font-bold text-white tracking-wide">Flange_Coupling_Assy.iam</span>
+                </div>
+              </div>
+
+              <!-- Status & Ikon Kontrol Pojok Kanan Atas -->
+              <div class="flex items-center gap-2">
+                <span class="inline-flex items-center gap-1 text-[0.65rem] bg-[#16261f] border border-[#1f3a2e] px-2 py-0.5 rounded text-[#00e676] font-mono">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#00e676] animate-pulse"></span> Isometric
+                </span>
+                <button id="hero-btn-explode" class="p-1 text-[#a3b8ad] hover:text-[#00e676] transition-colors rounded" title="Exploded View">
+                  <i data-lucide="maximize" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Area Interaktif CAD: Model Tree, ViewCube, Canvas 3D -->
+            <div class="relative cad-canvas-container">
+              
+
+              <!-- View Cube di Pojok Kanan Atas -->
+              <div id="hero-viewcube" class="view-cube-widget">
+                <div class="text-[0.55rem] font-mono font-bold text-[#8fa89b] mb-1">VIEW CUBE</div>
+                <div class="cube-compass">
+                  <button class="cube-btn" data-view="TOP">TOP</button>
+                  <button class="cube-btn active" data-view="ISO">ISO</button>
+                  <button class="cube-btn" data-view="FRONT">FRT</button>
+                  <button class="cube-btn" data-view="RIGHT">RGT</button>
+                  <button class="cube-btn" data-view="LEFT">LFT</button>
+                  <button class="cube-btn" data-view="BACK">BCK</button>
+                </div>
+              </div>
+
+              <!-- Three.js Canvas Container -->
+              <div id="hero-cad-canvas" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
+
+              <!-- Toolbar Bawah dalam Viewport: Saklar Sumbu X, Y, Z & Hint -->
+              <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">
+                
+                <!-- Saklar Potongan X, Y, Z -->
+                <div id="hero-axis-controls" class="flex items-center gap-1.5 bg-[#0a1410]/85 backdrop-blur px-2.5 py-1.5 rounded-lg border border-[#1f3a2e] pointer-events-auto">
+                  <span class="text-[0.68rem] font-mono text-[#8fa89b] mr-1">Potongan:</span>
+                  <button data-axis="x" class="axis-btn text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#ff5252]/20 text-[#ff5252] border border-[#ff5252]/40 hover:bg-[#ff5252] hover:text-white transition-all flex items-center gap-1" title="Potong Sumbu X (Garis Merah)">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#ff5252] inline-block shadow-[0_0_4px_#ff5252]"></span>X
+                  </button>
+                  <button data-axis="y" class="axis-btn text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#00e676]/20 text-[#00e676] border border-[#00e676]/40 hover:bg-[#00e676] hover:text-black transition-all flex items-center gap-1" title="Potong Sumbu Y (Garis Hijau)">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#00e676] inline-block shadow-[0_0_4px_#00e676]"></span>Y
+                  </button>
+                  <button data-axis="z" class="axis-btn text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#2979ff]/20 text-[#2979ff] border border-[#2979ff]/40 hover:bg-[#2979ff] hover:text-white transition-all flex items-center gap-1" title="Potong Sumbu Z (Garis Biru)">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#2979ff] inline-block shadow-[0_0_4px_#2979ff]"></span>Z
+                  </button>
+                </div>
+
+                <!-- Hint Kanan Bawah -->
+                <div class="hidden sm:flex items-center gap-2 text-[0.68rem] font-mono bg-[#0a1410]/80 backdrop-blur px-2.5 py-1 rounded border border-[#1f3a2e] text-[#8fa89b]">
+                  <span class="text-[#ff5252] font-bold">X: Merah</span>
+                  <span class="text-[#00e676] font-bold">Y: Hijau</span>
+                  <span class="text-[#2979ff] font-bold">Z: Biru</span>
+                  <span class="text-[#3d5a4d]">|</span>
+                  <span>Putar 360° • Zoom</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Panel Bawah Mockup: Material Chips & Action Buttons -->
+            <div class="p-3.5 bg-[#0a1410] border-t border-[#1f3a2e] flex flex-wrap items-center justify-between gap-3">
+              
+              <!-- Pilihan Material Chip -->
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-mono text-[#8fa89b]">Material:</span>
+                <div id="hero-material-chips" class="flex items-center gap-1.5">
+                  <button data-mat="steel" class="mat-chip cad-chip cad-chip-interactive text-xs px-2.5 py-1">Baja</button>
+                  <button data-mat="alloy" class="mat-chip cad-chip cad-chip-interactive active text-xs px-2.5 py-1">Alloy</button>
+                  <button data-mat="brass" class="mat-chip cad-chip cad-chip-interactive text-xs px-2.5 py-1">Kuningan</button>
+                  <button data-mat="carbon" class="mat-chip cad-chip cad-chip-interactive text-xs px-2.5 py-1">Carbon</button>
+                </div>
+              </div>
+
+              <!-- Tombol Aksi Kanan -->
+              <div class="flex items-center gap-2">
+                <button onclick="window.heroViewer && window.heroViewer.toggleFullscreen()" class="btn-neon text-xs px-3 py-1.5">
+                  <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>
+                  <span>Fullscreen</span>
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Footer Landing -->
+    <footer class="mt-auto border-t border-[#1f3a2e]/60 py-6 text-center text-xs text-[#627b70]">
+      <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+        <div class="flex items-center gap-2">
+          <span class="font-bold text-white">Tech3D</span> — Autodesk Inventor CAD & AR Learning Environment
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ==========================================================================
+       VIEW 2: HALAMAN UTAMA (MAIN LEARNING APPLICATION SPA)
+       ========================================================================== -->
+  <div id="view-app" class="relative z-10 flex flex-col min-h-screen hidden">
+    
+    <!-- Sticky App Header & Menu Navigasi (SPA Navigation) -->
+    <header class="site-header">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        
+        <!-- Logo Kecil + Breadcrumb -->
+        <div class="flex items-center gap-4">
+          <a href="#" onclick="switchView('landing'); return false;" class="flex items-center gap-2.5 group text-decoration-none">
+            <div class="w-9 h-9 rounded-lg bg-[#12201a] border border-[#00e676]/40 flex items-center justify-center text-[#00e676] shadow-[0_0_10px_rgba(0,230,118,0.25)]">
+              <i data-lucide="box" class="w-5 h-5"></i>
+            </div>
+            <span class="font-heading font-bold text-lg text-white group-hover:text-[#00e676] transition-colors">Tech3D</span>
+          </a>
+          <span class="text-[#1f3a2e] hidden md:inline">/</span>
+          <span id="breadcrumb-current" class="text-xs font-mono text-[#a3b8ad] hidden md:inline">Pengenalan Fitur</span>
+        </div>
+
+        <!-- 3 Menu Utama Aplikasi (SPA Tabs) -->
+        <nav class="flex items-center bg-[#0d1a14] p-1.5 rounded-xl border border-[#1f3a2e]">
+          <button data-tab="features" class="app-nav-tab nav-link text-xs sm:text-sm px-3.5 py-1.5 active">
+            <i data-lucide="book-open" class="w-4 h-4"></i>
+            <span>Pengenalan Fitur</span>
+          </button>
+          <button data-tab="jobsheets" class="app-nav-tab nav-link text-xs sm:text-sm px-3.5 py-1.5">
+            <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
+            <span>Jobsheet / LKM</span>
+          </button>
+          <button data-tab="parts3d" class="app-nav-tab nav-link text-xs sm:text-sm px-3.5 py-1.5">
+            <i data-lucide="box" class="w-4 h-4"></i>
+            <span>Bentuk Part 3D</span>
+          </button>
+        </nav>
+
+        <!-- Aksi Kanan App -->
+        <div class="flex items-center gap-2.5">
+          <button onclick="switchView('landing')" class="btn-secondary text-xs px-3 py-1.5" title="Kembali ke Beranda">
+            <i data-lucide="home" class="w-3.5 h-3.5"></i>
+            <span class="hidden sm:inline">Beranda</span>
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- App Body Content (Switched via Tabs) -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      
+      <!-- ==========================================
+           TAB 1: PENGENALAN FITUR AUTODESK INVENTOR
+           ========================================== -->
+      <section id="tab-pane-features" class="app-tab-pane">
+        
+        <!-- Header & 3 Card Kategori Utama Horizontal -->
+        <div class="mb-8">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+            <div>
+              <h2 class="text-2xl sm:text-3xl font-bold text-white font-heading">
+                Pustaka Fitur <span class="text-neon">Autodesk Inventor</span>
+              </h2>
+              <p class="text-sm text-[#a3b8ad] mt-1">
+                Kamus lengkap alat bantu (tools) untuk menggambar sketsa 2D, membuat bentuk 3D, merakit komponen, hingga membuat gambar kerja 2D.
+              </p>
+            </div>
+          </div>
+
+          <!-- 4 Card Kategori Utama Horizontal -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            
+            <!-- Card 1: 2D Sketch -->
+            <div onclick="selectFeatureCategory('2d'); sfx.click();" class="glass-panel glass-panel-glow p-6 cursor-pointer group hover:border-[#00e676] transition-all flex flex-col justify-between">
+              <div>
+                <div class="w-12 h-12 rounded-xl bg-[#16261f] border border-[#1f3a2e] text-[#00e676] group-hover:border-[#00e676] group-hover:shadow-[0_0_20px_rgba(0,230,118,0.4)] flex items-center justify-center mb-4 transition-all">
+                  <i data-lucide="pen-tool" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white group-hover:text-[#00e676] transition-colors">Sketsa 2D & Aturan Ukuran</h3>
+                <p class="text-xs text-[#a3b8ad] mt-2 leading-relaxed">
+                  Dilengkapi 40 alat sketsa 2D dan 33 aturan relasi geometri agar gambar sketsa presisi dan akurat.
+                </p>
+              </div>
+              <div class="mt-4 flex items-center text-xs font-bold text-[#00e676] gap-1 group-hover:translate-x-1 transition-transform">
+                <span>Eksplorasi Fitur 2D</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </div>
+            </div>
+
+            <!-- Card 2: 3D Part Modeling -->
+            <div onclick="selectFeatureCategory('3d'); sfx.click();" class="glass-panel glass-panel-glow p-6 cursor-pointer group hover:border-[#00e5ff] transition-all flex flex-col justify-between">
+              <div>
+                <div class="w-12 h-12 rounded-xl bg-[#16261f] border border-[#1f3a2e] text-[#00e5ff] group-hover:border-[#00e5ff] group-hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] flex items-center justify-center mb-4 transition-all">
+                  <i data-lucide="box" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white group-hover:text-[#00e5ff] transition-colors">Desain Part 3D</h3>
+                <p class="text-xs text-[#a3b8ad] mt-2 leading-relaxed">
+                  Memuat 47 fitur pemodelan 3D yang terbagi dalam 10 kategori utama (Pembuatan bentuk dasar, Pembuatan lubang, Modifikasi, Pola, dan lainnya).
+                </p>
+              </div>
+              <div class="mt-4 flex items-center text-xs font-bold text-[#00e5ff] gap-1 group-hover:translate-x-1 transition-transform">
+                <span>Eksplorasi Fitur 3D</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </div>
+            </div>
+
+            <!-- Card 3: Assembly (Baru) -->
+            <div onclick="selectFeatureCategory('assembly'); sfx.click();" class="glass-panel glass-panel-glow p-6 cursor-pointer group hover:border-[#a855f7] transition-all flex flex-col justify-between">
+              <div>
+                <div class="w-12 h-12 rounded-xl bg-[#16261f] border border-[#1f3a2e] text-[#a855f7] group-hover:border-[#a855f7] group-hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] flex items-center justify-center mb-4 transition-all">
+                  <i data-lucide="layers" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white group-hover:text-[#a855f7] transition-colors">Perakitan Komponen (Assembly)</h3>
+                <p class="text-xs text-[#a3b8ad] mt-2 leading-relaxed">
+                  Menyediakan 37 fitur perakitan lengkap untuk menggabungkan part, menentukan hubungan antarkomponen, hingga simulasi gerakan.
+                </p>
+              </div>
+              <div class="mt-4 flex items-center text-xs font-bold text-[#a855f7] gap-1 group-hover:translate-x-1 transition-transform">
+                <span>Eksplorasi Assembly</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </div>
+            </div>
+
+            <!-- Card 4: Drawing 2D & BOM -->
+            <div onclick="selectFeatureCategory('drawing'); sfx.click();" class="glass-panel glass-panel-glow p-6 cursor-pointer group hover:border-[#ff9100] transition-all flex flex-col justify-between">
+              <div>
+                <div class="w-12 h-12 rounded-xl bg-[#16261f] border border-[#1f3a2e] text-[#ff9100] group-hover:border-[#ff9100] group-hover:shadow-[0_0_20px_rgba(255,145,0,0.4)] flex items-center justify-center mb-4 transition-all">
+                  <i data-lucide="layout" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white group-hover:text-[#ff9100] transition-colors">Gambar Kerja 2D & Daftar Komponen</h3>
+                <p class="text-xs text-[#a3b8ad] mt-2 leading-relaxed">
+                  49 fitur gambar teknik (tampilan utama, potongan, detail) serta 26 fitur daftar komponen (BOM & daftar bagian) berstandar ISO.
+                </p>
+              </div>
+              <div class="mt-4 flex items-center text-xs font-bold text-[#ff9100] gap-1 group-hover:translate-x-1 transition-transform">
+                <span>Eksplorasi Drawing & BOM</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+
+        <!-- SEARCH BAR & FILTER SECTION -->
+        <div class="bg-[#0d1a14] border border-[#1f3a2e] rounded-2xl p-5 mb-6">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            
+            <!-- Search Bar White/Grayish -->
+            <div class="cad-search-input-wrapper flex-1 max-w-xl">
+              <i data-lucide="search" class="w-5 h-5 text-[#059669] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+              <input id="feature-search-input" type="text" placeholder="Cari nama menu atau fungsi (misal: Extrude, Line, Dimension, Hole)..." class="cad-search-input pl-11">
+              <button id="feature-search-clear" class="hidden absolute right-3.5 top-1/2 -translate-y-1/2 text-[#64748b] hover:text-[#0f172a] hover:bg-slate-200/80 rounded-full p-1 transition-colors" title="Clear Search">
+                <i data-lucide="x" class="w-4 h-4"></i>
+              </button>
+            </div>
+
+            <!-- Counter Hasil -->
+            <div id="features-count-label" class="text-xs font-mono text-[#8fa89b] shrink-0">
+              Menampilkan 0 dari 0 menu
+            </div>
+          </div>
+
+          <!-- Filter Chip di Bawah Search -->
+          <div id="feature-filter-chips" class="mt-4 pt-3 border-t border-[#1f3a2e]/60 flex flex-wrap items-center gap-2">
+            <span class="text-xs font-mono text-[#627b70] mr-1">Kategori:</span>
+            <button data-category="all" class="cad-chip cad-chip-interactive active text-xs">Semua</button>
+            <button data-category="2d" class="cad-chip cad-chip-interactive text-xs">2D Sketch</button>
+            <button data-category="3d" class="cad-chip cad-chip-interactive text-xs">3D Features</button>
+            <button data-category="assembly" class="cad-chip cad-chip-interactive text-xs">Assembly (.iam)</button>
+            <button data-category="drawing" class="cad-chip cad-chip-interactive text-xs">Drawing 2D (.idw)</button>
+          </div>
+        </div>
+
+        <!-- TABEL PENJELASAN FITUR -->
+        <div class="cad-table-container">
+          <table class="cad-table">
+            <thead>
+              <tr>
+                <th class="w-56">Nama Menu & Shortcut</th>
+                <th>Fungsi & Penerapan Manufaktur</th>
+                <th class="text-right w-28">Status / Klasifikasi</th>
+              </tr>
+            </thead>
+            <tbody id="features-table-body">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+
+          <!-- Empty State -->
+          <div id="features-empty-state" class="hidden py-16 text-center">
+            <div class="w-12 h-12 mx-auto rounded-full bg-[#12201a] border border-[#1f3a2e] flex items-center justify-center text-[#8fa89b] mb-3">
+              <i data-lucide="search-x" class="w-6 h-6"></i>
+            </div>
+            <h4 class="text-base font-bold text-white">Menu tidak ditemukan</h4>
+            <p class="text-xs text-[#8fa89b] mt-1">Coba kata kunci lain atau pilih filter [Semua].</p>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ==========================================
+           TAB 2: JOBSHEET / LKM
+           ========================================== -->
+      <section id="tab-pane-jobsheets" class="app-tab-pane hidden">
+        
+        <div class="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white font-heading">
+              Jobsheet & <span class="text-neon">Lembar Kerja Mahasiswa (LKM)</span>
+            </h2>
+            <p class="text-sm text-[#a3b8ad] mt-1">
+              10 Panduan praktikum terstruktur perancangan manufaktur mekanikal berbasis standar ISO.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3">
+            <a href="https://drive.google.com/drive/folders/10oOazck9kgFaRwQ5-H0f26NzTOsFPWrO?usp=drive_link" target="_blank" rel="noopener noreferrer" class="btn-outline-neon text-xs px-3.5 py-2 flex items-center gap-2 font-mono">
+              <i data-lucide="folder" class="w-4 h-4"></i>
+              <span>Buka Google Drive (10 PDF)</span>
+              <i data-lucide="external-link" class="w-3 h-3 text-[#00e676]"></i>
+            </a>
+            <span class="inline-flex items-center gap-1.5 text-xs font-mono bg-[#12201a] border border-[#1f3a2e] px-3 py-2 rounded-lg text-[#00e676]">
+              <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> 10 File PDF (Part 1-1 s.d. 1-10)
+            </span>
+          </div>
+        </div>
+
+        <!-- Grid 10 Card LKM (3 Kolom Responsif) -->
+        <div id="jobsheets-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Rendered dynamically via js/app.js -->
+        </div>
+
+      </section>
+
+      <!-- ==========================================
+           TAB 3: BENTUK PART 3D (CAD GALLERY & VIEWER)
+           ========================================== -->
+      <section id="tab-pane-parts3d" class="app-tab-pane hidden">
+        
+        <div class="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white font-heading">
+              Galeri & Viewer <span class="text-neon">Bentuk Part 3D</span>
+            </h2>
+            <p class="text-sm text-[#a3b8ad] mt-1">
+              Eksplorasi 10 model 3D mekanikal realistis dengan fitur potong (Section Clipping), rotasi 360°, dan spesifikasi teknis.
+            </p>
+          </div>
+        </div>
+
+        <!-- 2 Kolom Layout (Kiri: List 10 Part, Kanan: Dedicated Three.js CAD Viewport) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          
+          <!-- Sidebar Kiri: List 10 Part -->
+          <div class="lg:col-span-4 bg-[#0d1a14] border border-[#1f3a2e] rounded-2xl p-4 max-h-[610px] overflow-y-auto">
+            <div class="text-xs font-mono font-bold uppercase text-[#8fa89b] mb-3 flex items-center justify-between">
+              <span>Daftar Komponen CAD (10 Part)</span>
+              <span class="text-[#00e676]">Pilih Part</span>
+            </div>
+            <div id="parts3d-sidebar-list" class="space-y-2">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Kolom Kanan: Dedicated Three.js CAD Viewer Window -->
+          <div class="lg:col-span-8">
+            <div class="cad-window">
+              
+              <!-- Titlebar Window -->
+              <div class="cad-titlebar">
+                <div class="flex items-center gap-3">
+                  <div class="window-dots">
+                    <span class="w-dot w-dot-red"></span>
+                    <span class="w-dot w-dot-yellow"></span>
+                    <span class="w-dot w-dot-green"></span>
+                  </div>
+                  <span id="app-viewer-filename" class="font-bold text-white font-mono">Part 1-1</span>
+                </div>
+
+                <div class="flex items-center gap-2">
+                  <button id="app-btn-wireframe" class="btn-secondary text-xs px-2.5 py-1" title="Toggle Rangka Garis (Wireframe)">
+                    <i data-lucide="grid" class="w-3.5 h-3.5"></i> Wireframe
+                  </button>
+                  <button id="app-btn-fullscreen" class="btn-secondary text-xs px-2.5 py-1" title="Layar Penuh">
+                    <i data-lucide="expand" class="w-3.5 h-3.5"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Main Canvas Area -->
+              <div class="relative w-full h-[520px] bg-radial-cad overflow-hidden">
+                
+                <!-- View Cube di Kanan Atas -->
+                <div id="app-viewcube" class="view-cube-widget">
+                  <div class="text-[0.55rem] font-mono font-bold text-[#8fa89b] mb-1">VIEW CUBE</div>
+                  <div class="cube-compass">
+                    <button class="cube-btn" data-view="TOP">TOP</button>
+                    <button class="cube-btn active" data-view="ISO">ISO</button>
+                    <button class="cube-btn" data-view="FRONT">FRT</button>
+                    <button class="cube-btn" data-view="RIGHT">RGT</button>
+                    <button class="cube-btn" data-view="LEFT">LFT</button>
+                    <button class="cube-btn" data-view="BACK">BCK</button>
+                  </div>
+                </div>
+
+                <!-- Three.js Canvas -->
+                <div id="app-cad-canvas" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
+
+                <!-- Bottom Floating Controls: Section Toggle + X/Y/Z Axes + Offset Slider -->
+                <div class="absolute bottom-3 left-3 right-3 flex flex-wrap items-center justify-between gap-2 pointer-events-none">
+                  
+                  <div class="flex items-center gap-2 bg-[#0a1410]/90 backdrop-blur p-1.5 rounded-xl border border-[#1f3a2e] pointer-events-auto">
+                    <!-- Tombol Toggle Section Potongan -->
+                    <button id="app-btn-section" class="btn-secondary text-xs px-3 py-1 flex items-center gap-1.5">
+                      <i data-lucide="scissors" class="w-3.5 h-3.5"></i>
+                      <span>Section</span>
+                    </button>
+
+                    <!-- Kontrol Sumbu Potongan (X, Y, Z + Slider) -->
+                    <div id="app-section-controls" class="hidden flex items-center gap-2 pl-2 border-l border-[#1f3a2e]">
+                      <span class="text-[0.7rem] font-mono text-[#8fa89b]">Sumbu:</span>
+                      <button id="app-sec-axis-x" data-axis="x" class="axis-btn-x text-xs px-2.5 py-0.5 font-mono font-bold rounded border transition-all flex items-center gap-1 bg-[#ff5252]/15 text-[#ff5252] border-[#ff5252]/40 hover:bg-[#ff5252]/30 active:scale-95" title="Potong Sumbu X (Garis Merah)">
+                        <span class="w-2 h-2 rounded-full bg-[#ff5252] inline-block shadow-[0_0_6px_#ff5252]"></span>X
+                      </button>
+                      <button id="app-sec-axis-y" data-axis="y" class="axis-btn-y text-xs px-2.5 py-0.5 font-mono font-bold rounded border transition-all flex items-center gap-1 bg-[#00e676]/15 text-[#00e676] border-[#00e676]/40 hover:bg-[#00e676]/30 active:scale-95" title="Potong Sumbu Y (Garis Hijau)">
+                        <span class="w-2 h-2 rounded-full bg-[#00e676] inline-block shadow-[0_0_6px_#00e676]"></span>Y
+                      </button>
+                      <button id="app-sec-axis-z" data-axis="z" class="axis-btn-z text-xs px-2.5 py-0.5 font-mono font-bold rounded border transition-all flex items-center gap-1 bg-[#2979ff]/15 text-[#2979ff] border-[#2979ff]/40 hover:bg-[#2979ff]/30 active:scale-95" title="Potong Sumbu Z (Garis Biru)">
+                        <span class="w-2 h-2 rounded-full bg-[#2979ff] inline-block shadow-[0_0_6px_#2979ff]"></span>Z
+                      </button>
+                      
+                      <div class="flex items-center gap-1.5 pl-1.5 border-l border-[#1f3a2e]/80">
+                        <span class="text-[0.65rem] font-mono text-[#8fa89b]">Offset:</span>
+                        <input id="app-section-slider" type="range" min="-3.2" max="3.2" step="0.1" value="0" class="w-20 accent-[#ff5252] cursor-pointer" title="Geser bidang potong">
+                        <span id="app-section-offset-val" class="text-[0.68rem] font-mono text-[#ff5252] font-bold min-w-[28px]">0.0</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="hidden sm:flex items-center gap-2.5 text-[0.68rem] font-mono bg-[#0a1410]/85 backdrop-blur px-3 py-1 rounded-lg border border-[#1f3a2e] text-[#8fa89b]">
+                    <span class="flex items-center gap-1 text-[#ff5252] font-semibold"><span class="w-2 h-2 rounded-full bg-[#ff5252] inline-block shadow-[0_0_5px_#ff5252]"></span>X (Merah)</span>
+                    <span class="flex items-center gap-1 text-[#00e676] font-semibold"><span class="w-2 h-2 rounded-full bg-[#00e676] inline-block shadow-[0_0_5px_#00e676]"></span>Y (Hijau)</span>
+                    <span class="flex items-center gap-1 text-[#2979ff] font-semibold"><span class="w-2 h-2 rounded-full bg-[#2979ff] inline-block shadow-[0_0_5px_#2979ff]"></span>Z (Biru)</span>
+                    <span class="text-[#3d5a4d]">|</span>
+                    <span>Klik-Tarik: Putar • Scroll: Zoom</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Panel Bawah Viewer: Material Preset Selector -->
+              <div class="p-3.5 bg-[#0a1410] border-t border-[#1f3a2e] flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-mono text-[#8fa89b]">Preset Material:</span>
+                  <div id="app-material-chips" class="flex flex-wrap items-center gap-1.5">
+                    <button data-mat="steel" class="mat-chip cad-chip cad-chip-interactive text-xs px-2.5 py-1">Baja</button>
+                    <button data-mat="alloy" class="mat-chip cad-chip cad-chip-interactive active text-xs px-2.5 py-1">Alloy</button>
+                    <button data-mat="castiron" class="mat-chip cad-chip cad-chip-interactive text-xs px-2.5 py-1">Besi Cor</button>
+                    <button data-mat="brass" class="mat-chip cad-chip cad-chip-interactive text-xs px-2.5 py-1">Kuningan</button>
+                    <button data-mat="carbon" class="mat-chip cad-chip cad-chip-interactive text-xs px-2.5 py-1">Carbon</button>
+                    <button data-mat="chrome" class="mat-chip cad-chip cad-chip-interactive text-xs px-2.5 py-1">Chrome</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 1: DOKUMEN LKM & PDF VIEWER LIGHTBOX
+       ========================================================================== -->
+  <div id="modal-lkm-viewer" class="modal-overlay">
+    <div class="modal-content">
+      
+      <!-- Modal Header -->
+      <div class="p-5 bg-[#0a1410] border-b border-[#1f3a2e] flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-[#00e676]/10 text-[#00e676] border border-[#00e676]/30 flex items-center justify-center">
+            <i data-lucide="file-text" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 id="modal-lkm-title" class="text-base font-bold text-white leading-tight">LKM 01: Dasar 2D Sketch</h3>
+            <div id="modal-lkm-subtitle" class="text-xs text-[#8fa89b] font-mono mt-0.5">Perancangan Profil Flange Plate</div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2.5">
+          <a id="modal-lkm-drive-btn" href="https://drive.google.com/drive/folders/10oOazck9kgFaRwQ5-H0f26NzTOsFPWrO?usp=drive_link" target="_blank" rel="noopener noreferrer" class="btn-outline-neon text-xs px-3 py-1.5 flex items-center gap-1.5">
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Buka File di Google Drive
+          </a>
+          <button onclick="closeLKMModal()" class="w-8 h-8 rounded-lg bg-[#12201a] text-[#8fa89b] hover:text-white hover:border-[#00e676] border border-[#1f3a2e] flex items-center justify-center transition-all">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Body (2 Kolom: Kiri Lembar Gambar Blueprint, Kanan Langkah Kerja & Checklist) -->
+      <div class="p-6 overflow-y-auto max-h-[75vh] grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Kolom Kiri: Blueprint Drawing Viewer -->
+        <div class="lg:col-span-7 flex flex-col">
+          <div class="text-xs font-mono font-bold uppercase text-[#8fa89b] mb-2 flex items-center justify-between">
+            <span>Preview Lembar PDF Jobsheet (Google Drive)</span>
+            <span id="modal-lkm-standard" class="text-[#00e676]">Standar: ISO 128</span>
+          </div>
+          
+          <div id="modal-blueprint-area" class="h-96 w-full">
+            <!-- Dynamic Google Drive PDF Viewer Frame -->
+          </div>
+
+          <div class="mt-4 grid grid-cols-2 gap-3 text-xs font-mono">
+            <div class="p-2.5 rounded bg-[#12201a] border border-[#1f3a2e]">
+              <span class="text-[#627b70]">Bahan Material:</span>
+              <div id="modal-lkm-material" class="text-white font-bold mt-0.5">St37 (Mild Steel)</div>
+            </div>
+            <div class="p-2.5 rounded bg-[#12201a] border border-[#1f3a2e]">
+              <span class="text-[#627b70]">Toleransi Umum:</span>
+              <div id="modal-lkm-tolerance" class="text-white font-bold mt-0.5">ISO 2768-m</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kolom Kanan: Langkah Kerja Interaktif & Checklist -->
+        <div class="lg:col-span-5 flex flex-col">
+          <div class="text-xs font-mono font-bold uppercase text-[#8fa89b] mb-2 flex items-center justify-between">
+            <span>Langkah Praktik & Checklist</span>
+            <span class="text-[#00e5ff] text-[0.7rem]">Centang untuk Selesai</span>
+          </div>
+
+          <div id="modal-lkm-steps" class="space-y-2 flex-1 overflow-y-auto max-h-80 pr-1">
+            <!-- Steps with Checkboxes -->
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-[#1f3a2e] flex items-center justify-between">
+            <span class="text-[0.7rem] text-[#627b70] font-mono">Status: Mandiri / Terbimbing</span>
+            <button onclick="closeLKMModal()" class="btn-neon text-xs px-4 py-2">
+              Selesai Membaca
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 2: QR CODE SCANNER & AR SYNCHRONIZER
+       ========================================================================== -->
+  <div id="modal-qr-scanner" class="modal-overlay">
+    <div class="modal-content max-w-lg">
+      
+      <!-- Modal Header -->
+      <div class="p-5 bg-[#0a1410] border-b border-[#1f3a2e] flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <i data-lucide="qr-code" class="w-5 h-5 text-[#00e676]"></i>
+          <h3 class="text-base font-bold text-white">Sinkronisasi QR / AR LKM</h3>
+        </div>
+        <button onclick="closeQRModal()" class="text-[#8fa89b] hover:text-white p-1">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Scanner Body -->
+      <div class="p-6 text-center">
+        
+        <!-- Viewfinder Simulator with Green Laser Line -->
+        <div class="relative w-56 h-56 mx-auto bg-[#07110d] border-2 border-dashed border-[#00e676]/60 rounded-2xl flex items-center justify-center overflow-hidden shadow-[0_0_30px_rgba(0,230,118,0.2)]">
+          <div class="absolute inset-x-0 h-0.5 bg-[#00e676] shadow-[0_0_12px_#00e676] animate-bounce top-1/2"></div>
+          <i data-lucide="camera" class="w-12 h-12 text-[#1f3a2e]"></i>
+          <div class="absolute bottom-2 text-[0.65rem] font-mono text-[#00e676]">Arahkan ke Lembar Cetak LKM</div>
+        </div>
+
+        <p class="text-xs text-[#a3b8ad] mt-4 leading-relaxed">
+          Pindai kode QR pada sudut kanan atas lembar kerja praktikum fisik Anda untuk membuka panduan digital atau preview 3D secara instan.
+        </p>
+
+        <!-- Shortcut Simulasi Pindai Langsung -->
+        <div class="mt-5 pt-4 border-t border-[#1f3a2e]">
+          <div class="text-xs font-mono text-[#8fa89b] mb-2.5">Uji Coba Pindai Cepat (Simulasi):</div>
+          <div class="flex flex-wrap justify-center gap-2">
+            <button onclick="simulateScanQR('lkm-01')" class="cad-chip cad-chip-interactive text-xs">LKM 01 (Part 1-1)</button>
+            <button onclick="simulateScanQR('lkm-03')" class="cad-chip cad-chip-interactive text-xs">LKM 03 (Part 1-3)</button>
+            <button onclick="simulateScanQR('part-01')" class="cad-chip cad-chip-interactive text-xs text-[#00e5ff]">3D Part 1-1</button>
+            <button onclick="simulateScanQR('part-02')" class="cad-chip cad-chip-interactive text-xs text-[#00e5ff]">3D Part 1-2</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/models-data.js"></script>
+  <script src="js/cad-models.js"></script>
+  <script src="js/viewer3d.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
