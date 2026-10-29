@@ -7,7 +7,7 @@
 // Global State
 const appState = {
   currentView: 'landing', // 'landing' | 'app'
-  currentTab: 'features',  // 'features' | 'jobsheets' | 'parts3d'
+  currentTab: 'parts3d',  // 'parts3d' | 'jobsheets' | 'features'
   selectedFeatureCategory: 'all',
   searchQuery: '',
   selectedPartId: 'part-01',
@@ -114,7 +114,7 @@ function initSPA() {
   }
 }
 
-function switchView(viewName, tabName = 'features') {
+function switchView(viewName, tabName = 'parts3d') {
   appState.currentView = viewName;
   const landingSection = document.getElementById('view-landing');
   const appSection = document.getElementById('view-app');
@@ -516,23 +516,48 @@ function renderJobsheets() {
  */
 function renderParts3DList() {
   const container = document.getElementById('parts3d-sidebar-list');
-  if (!container) return;
+  if (container) {
+    container.innerHTML = INVENTOR_DATA.parts3d.map((part, idx) => {
+      const isSelected = part.id === appState.selectedPartId;
+      return `
+        <div onclick="selectPart3D('${part.id}')" class="part-item-card p-3 rounded-xl border transition-all cursor-pointer flex items-center gap-3 ${isSelected ? 'bg-[#00e676]/10 border-[#00e676] shadow-[0_0_15px_rgba(0,230,118,0.25)]' : 'bg-[#12201a] border-[#1f3a2e] hover:border-[#00e676]/50 hover:bg-[#16261f]'}">
+          <div class="w-10 h-10 rounded-lg bg-[#0d1a14] border border-[#1f3a2e] flex items-center justify-center text-[#00e676] shrink-0 font-mono font-bold text-xs">
+            0${idx + 1}
+          </div>
+          <div class="overflow-hidden flex-1">
+            <div class="font-bold text-sm text-white truncate ${isSelected ? 'text-[#00e676]' : ''}">${part.name}</div>
+            <div class="text-[0.72rem] text-[#8fa89b] font-mono truncate">${part.technicalName}</div>
+          </div>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-[#627b70] shrink-0"></i>
+        </div>
+      `;
+    }).join('');
+  }
 
-  container.innerHTML = INVENTOR_DATA.parts3d.map((part, idx) => {
-    const isSelected = part.id === appState.selectedPartId;
-    return `
-      <div onclick="selectPart3D('${part.id}')" class="part-item-card p-3 rounded-xl border transition-all cursor-pointer flex items-center gap-3 ${isSelected ? 'bg-[#00e676]/10 border-[#00e676] shadow-[0_0_15px_rgba(0,230,118,0.25)]' : 'bg-[#12201a] border-[#1f3a2e] hover:border-[#00e676]/50 hover:bg-[#16261f]'}">
-        <div class="w-10 h-10 rounded-lg bg-[#0d1a14] border border-[#1f3a2e] flex items-center justify-center text-[#00e676] shrink-0 font-mono font-bold text-xs">
-          0${idx + 1}
-        </div>
-        <div class="overflow-hidden flex-1">
-          <div class="font-bold text-sm text-white truncate ${isSelected ? 'text-[#00e676]' : ''}">${part.name}</div>
-          <div class="text-[0.72rem] text-[#8fa89b] font-mono truncate">${part.technicalName}</div>
-        </div>
-        <i data-lucide="chevron-right" class="w-4 h-4 text-[#627b70] shrink-0"></i>
-      </div>
-    `;
-  }).join('');
+  // Render Horizontal Quick Pills untuk HP / Tablet
+  const pillBar = document.getElementById('parts3d-mobile-pill-bar');
+  if (pillBar) {
+    pillBar.innerHTML = INVENTOR_DATA.parts3d.map((part, idx) => {
+      const isSelected = part.id === appState.selectedPartId;
+      return `
+        <button onclick="selectPart3D('${part.id}')" class="part-pill-btn shrink-0 px-3 py-1.5 rounded-lg border text-xs font-mono transition-all flex items-center gap-1.5 ${isSelected ? 'bg-[#00e676]/20 text-[#00e676] border-[#00e676] shadow-[0_0_12px_rgba(0,230,118,0.35)] font-bold' : 'bg-[#12201a] text-[#8fa89b] border-[#1f3a2e] hover:border-[#00e676]/40 hover:text-white'}">
+          <span class="w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-[#00e676] shadow-[0_0_6px_#00e676]' : 'bg-[#3d5a4d]'}"></span>
+          <span>Part 1-${idx + 1}</span>
+        </button>
+      `;
+    }).join('');
+
+    const activePill = pillBar.querySelector('.border-\\[\\#00e676\\]');
+    if (activePill) {
+      activePill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+  }
+
+  const mobileLabel = document.getElementById('mobile-part-current-label');
+  if (mobileLabel) {
+    const curr = INVENTOR_DATA.parts3d.find(p => p.id === appState.selectedPartId);
+    if (curr) mobileLabel.textContent = curr.name;
+  }
 
   if (window.lucide) window.lucide.createIcons();
 }
@@ -586,7 +611,8 @@ function initApp3DViewer() {
 
   // Section toggle & plane switches (X: Red, Y: Green, Z: Blue)
   const sectionBtn = document.getElementById('app-btn-section');
-  const sectionControls = document.getElementById('app-section-controls');
+  const sectionAxes = document.getElementById('app-section-axes');
+  const sectionSliderRow = document.getElementById('app-section-slider-row');
   const axisX = document.getElementById('app-sec-axis-x');
   const axisY = document.getElementById('app-sec-axis-y');
   const axisZ = document.getElementById('app-sec-axis-z');
@@ -634,8 +660,11 @@ function initApp3DViewer() {
       const active = window.appViewer.toggleSection();
       sectionBtn.classList.toggle('bg-[#00e676]', active);
       sectionBtn.classList.toggle('text-[#06110c]', active);
-      if (sectionControls) {
-        sectionControls.classList.toggle('hidden', !active);
+      if (sectionAxes) {
+        sectionAxes.classList.toggle('hidden', !active);
+      }
+      if (sectionSliderRow) {
+        sectionSliderRow.classList.toggle('hidden', !active);
       }
       if (active) {
         updateAppSectionAxisStyles(window.appViewer.sectionAxis || 'x');
@@ -674,7 +703,6 @@ function initApp3DViewer() {
     });
   }
 
-
   // Fullscreen button
   const fsBtn = document.getElementById('app-btn-fullscreen');
   if (fsBtn) {
@@ -697,6 +725,11 @@ function loadSelectedPart3D(partId) {
   const titleEl = document.getElementById('app-viewer-filename');
   if (titleEl) {
     titleEl.textContent = part.name;
+  }
+
+  const mobileLabel = document.getElementById('mobile-part-current-label');
+  if (mobileLabel) {
+    mobileLabel.textContent = part.name;
   }
 }
 

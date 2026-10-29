@@ -62,23 +62,27 @@
     
     <!-- Top Navbar Beranda -->
     <header class="site-header">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
         
         <!-- Logo Kiri: Ikon Kubus 3D + Tech3D + Subtitle -->
-        <a href="#" onclick="switchView('landing'); return false;" class="flex items-center gap-3.5 group text-decoration-none">
-          <div class="w-11 h-11 rounded-xl bg-[#12201a] border border-[#00e676]/40 flex items-center justify-center text-[#00e676] shadow-[0_0_15px_rgba(0,230,118,0.25)] group-hover:shadow-[0_0_25px_rgba(0,230,118,0.5)] group-hover:border-[#00e676] transition-all">
-            <i data-lucide="box" class="w-6 h-6 transform group-hover:rotate-12 transition-transform duration-300"></i>
+        <a href="#" onclick="switchView('landing'); return false;" class="flex items-center gap-2.5 sm:gap-3.5 group text-decoration-none">
+          <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-[#12201a] border border-[#00e676]/40 flex items-center justify-center text-[#00e676] shadow-[0_0_15px_rgba(0,230,118,0.25)] group-hover:shadow-[0_0_25px_rgba(0,230,118,0.5)] group-hover:border-[#00e676] transition-all">
+            <i data-lucide="box" class="w-5 h-5 sm:w-6 sm:h-6 transform group-hover:rotate-12 transition-transform duration-300"></i>
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <span class="font-heading font-extrabold text-xl tracking-tight text-white group-hover:text-[#00e676] transition-colors">Tech3D</span>
+              <span class="font-heading font-extrabold text-lg sm:text-xl tracking-tight text-white group-hover:text-[#00e676] transition-colors">Tech3D</span>
               <span class="inline-block w-1.5 h-1.5 rounded-full bg-[#00e676] shadow-[0_0_8px_#00e676]"></span>
             </div>
-            <div class="text-[0.68rem] font-mono tracking-widest text-[#8fa89b] uppercase -mt-0.5">CAD & AR VIEWER</div>
+            <div class="text-[0.62rem] sm:text-[0.68rem] font-mono tracking-widest text-[#8fa89b] uppercase -mt-0.5">CAD & AR VIEWER</div>
           </div>
         </a>
 
-
+        <!-- Tombol Akses Cepat Masuk Aplikasi -->
+        <button onclick="switchView('app', 'parts3d')" class="btn-neon text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 flex items-center gap-1.5 sm:gap-2">
+          <span>Buka Aplikasi</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+        </button>
 
       </div>
     </header>
@@ -105,7 +109,7 @@
 
           <!-- Tombol Utama "Mulai Panduan →" -->
           <div class="mt-8 flex flex-wrap items-center gap-4">
-            <button onclick="switchView('app', 'features')" class="btn-neon text-base px-8 py-3.5 shadow-[0_0_30px_rgba(0,230,118,0.45)] flex items-center gap-3">
+            <button onclick="switchView('app', 'parts3d')" class="btn-neon text-base px-8 py-3.5 shadow-[0_0_30px_rgba(0,230,118,0.45)] flex items-center gap-3">
               <span class="font-bold">Mulai Panduan</span>
               <i data-lucide="arrow-right" class="w-5 h-5"></i>
             </button>
@@ -240,54 +244,54 @@
     
     <!-- Sticky App Header & Menu Navigasi (SPA Navigation) -->
     <header class="site-header">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
         
         <!-- Logo Kecil + Breadcrumb -->
-        <div class="flex items-center gap-4">
-          <a href="#" onclick="switchView('landing'); return false;" class="flex items-center gap-2.5 group text-decoration-none">
-            <div class="w-9 h-9 rounded-lg bg-[#12201a] border border-[#00e676]/40 flex items-center justify-center text-[#00e676] shadow-[0_0_10px_rgba(0,230,118,0.25)]">
-              <i data-lucide="box" class="w-5 h-5"></i>
+        <div class="flex items-center gap-3 sm:gap-4">
+          <a href="#" onclick="switchView('landing'); return false;" class="flex items-center gap-2 sm:gap-2.5 group text-decoration-none">
+            <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#12201a] border border-[#00e676]/40 flex items-center justify-center text-[#00e676] shadow-[0_0_10px_rgba(0,230,118,0.25)]">
+              <i data-lucide="box" class="w-4 h-4 sm:w-5 sm:h-5"></i>
             </div>
-            <span class="font-heading font-bold text-lg text-white group-hover:text-[#00e676] transition-colors">Tech3D</span>
+            <span class="font-heading font-bold text-base sm:text-lg text-white group-hover:text-[#00e676] transition-colors">Tech3D</span>
           </a>
           <span class="text-[#1f3a2e] hidden md:inline">/</span>
-          <span id="breadcrumb-current" class="text-xs font-mono text-[#a3b8ad] hidden md:inline">Pengenalan Fitur</span>
+          <span id="breadcrumb-current" class="text-xs font-mono text-[#a3b8ad] hidden md:inline">Bentuk Part 3D</span>
         </div>
 
-        <!-- 3 Menu Utama Aplikasi (SPA Tabs) -->
-        <nav class="flex items-center bg-[#0d1a14] p-1.5 rounded-xl border border-[#1f3a2e]">
-          <button data-tab="features" class="app-nav-tab nav-link text-xs sm:text-sm px-3.5 py-1.5 active">
-            <i data-lucide="book-open" class="w-4 h-4"></i>
-            <span>Pengenalan Fitur</span>
+        <!-- 3 Menu Utama Aplikasi (Desktop: md ke atas) -->
+        <nav class="hidden md:flex items-center bg-[#0d1a14] p-1.5 rounded-xl border border-[#1f3a2e]">
+          <button data-tab="parts3d" class="app-nav-tab nav-link text-xs sm:text-sm px-3.5 py-1.5 active">
+            <i data-lucide="box" class="w-4 h-4"></i>
+            <span>Bentuk Part 3D</span>
           </button>
           <button data-tab="jobsheets" class="app-nav-tab nav-link text-xs sm:text-sm px-3.5 py-1.5">
             <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
             <span>Jobsheet / LKM</span>
           </button>
-          <button data-tab="parts3d" class="app-nav-tab nav-link text-xs sm:text-sm px-3.5 py-1.5">
-            <i data-lucide="box" class="w-4 h-4"></i>
-            <span>Bentuk Part 3D</span>
+          <button data-tab="features" class="app-nav-tab nav-link text-xs sm:text-sm px-3.5 py-1.5">
+            <i data-lucide="book-open" class="w-4 h-4"></i>
+            <span>Pengenalan Fitur</span>
           </button>
         </nav>
 
-        <!-- Aksi Kanan App -->
-        <div class="flex items-center gap-2.5">
-          <button onclick="switchView('landing')" class="btn-secondary text-xs px-3 py-1.5" title="Kembali ke Beranda">
+        <!-- Aksi Kanan App: Tombol Kembali ke Beranda -->
+        <div class="flex items-center gap-2">
+          <button onclick="switchView('landing')" class="btn-secondary text-xs px-2.5 sm:px-3 py-1.5 flex items-center gap-1.5" title="Kembali ke Beranda">
             <i data-lucide="home" class="w-3.5 h-3.5"></i>
-            <span class="hidden sm:inline">Beranda</span>
+            <span>Beranda</span>
           </button>
         </div>
 
       </div>
     </header>
 
-    <!-- App Body Content (Switched via Tabs) -->
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- App Body Content (Switched via Tabs - Padding bawah di HP untuk dock nav) -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-24 md:py-8">
       
       <!-- ==========================================
            TAB 1: PENGENALAN FITUR AUTODESK INVENTOR
            ========================================== -->
-      <section id="tab-pane-features" class="app-tab-pane">
+      <section id="tab-pane-features" class="app-tab-pane hidden">
         
         <!-- Header & 3 Card Kategori Utama Horizontal -->
         <div class="mb-8">
@@ -472,64 +476,69 @@
       <!-- ==========================================
            TAB 3: BENTUK PART 3D (CAD GALLERY & VIEWER)
            ========================================== -->
-      <section id="tab-pane-parts3d" class="app-tab-pane hidden">
+      <section id="tab-pane-parts3d" class="app-tab-pane">
         
-        <div class="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="mb-4 sm:mb-6 flex flex-col md:flex-row md:items-center justify-between gap-2 sm:gap-4">
           <div>
-            <h2 class="text-2xl sm:text-3xl font-bold text-white font-heading">
+            <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-white font-heading">
               Galeri & Viewer <span class="text-neon">Bentuk Part 3D</span>
             </h2>
-            <p class="text-sm text-[#a3b8ad] mt-1">
+            <p class="text-xs sm:text-sm text-[#a3b8ad] mt-1">
               Eksplorasi 10 model 3D mekanikal realistis dengan fitur potong (Section Clipping), rotasi 360°, dan spesifikasi teknis.
             </p>
           </div>
         </div>
 
-        <!-- 2 Kolom Layout (Kiri: List 10 Part, Kanan: Dedicated Three.js CAD Viewport) -->
+        <!-- Mobile Quick Part Selector Bar (Horizontal Carousel - Khusus Layar HP/Tablet < lg) -->
+        <div class="lg:hidden mb-3.5 bg-[#0d1a14] border border-[#1f3a2e] rounded-xl p-2.5 shadow-md">
+          <div class="flex items-center justify-between mb-2 px-1">
+            <span class="text-[0.68rem] font-mono uppercase text-[#8fa89b] font-bold flex items-center gap-1.5">
+              <i data-lucide="box" class="w-3.5 h-3.5 text-[#00e676]"></i>
+              Pilih Komponen:
+            </span>
+            <span id="mobile-part-current-label" class="text-[0.68rem] font-mono text-[#00e676] font-bold truncate max-w-[170px]">Part 1-1</span>
+          </div>
+          <!-- Horizontal Swipeable Pills -->
+          <div id="parts3d-mobile-pill-bar" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5 px-0.5 scroll-smooth">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+
+        <!-- 2 Kolom Layout (Urutan HP: Viewer Dulu (order-1), lalu List Komponen (order-2)) -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
-          <!-- Sidebar Kiri: List 10 Part -->
-          <div class="lg:col-span-4 bg-[#0d1a14] border border-[#1f3a2e] rounded-2xl p-4 max-h-[610px] overflow-y-auto">
-            <div class="text-xs font-mono font-bold uppercase text-[#8fa89b] mb-3 flex items-center justify-between">
-              <span>Daftar Komponen CAD (10 Part)</span>
-              <span class="text-[#00e676]">Pilih Part</span>
-            </div>
-            <div id="parts3d-sidebar-list" class="space-y-2">
-              <!-- Rendered via JS -->
-            </div>
-          </div>
-
-          <!-- Kolom Kanan: Dedicated Three.js CAD Viewer Window -->
-          <div class="lg:col-span-8">
+          <!-- Kolom 1 (Desktop Kanan, Mobile Atas): Dedicated Three.js CAD Viewer Window -->
+          <div class="lg:col-span-8 order-1 lg:order-2">
             <div class="cad-window">
               
               <!-- Titlebar Window -->
               <div class="cad-titlebar">
-                <div class="flex items-center gap-3">
-                  <div class="window-dots">
+                <div class="flex items-center gap-2.5 sm:gap-3">
+                  <div class="window-dots hidden sm:flex">
                     <span class="w-dot w-dot-red"></span>
                     <span class="w-dot w-dot-yellow"></span>
                     <span class="w-dot w-dot-green"></span>
                   </div>
-                  <span id="app-viewer-filename" class="font-bold text-white font-mono">Part 1-1</span>
+                  <span id="app-viewer-filename" class="font-bold text-white font-mono text-xs sm:text-sm truncate max-w-[150px] sm:max-w-none">Part 1-1</span>
                 </div>
 
-                <div class="flex items-center gap-2">
-                  <button id="app-btn-wireframe" class="btn-secondary text-xs px-2.5 py-1" title="Toggle Rangka Garis (Wireframe)">
-                    <i data-lucide="grid" class="w-3.5 h-3.5"></i> Wireframe
+                <div class="flex items-center gap-1.5 sm:gap-2">
+                  <button id="app-btn-wireframe" class="btn-secondary text-[0.7rem] sm:text-xs px-2 sm:px-2.5 py-1" title="Toggle Rangka Garis (Wireframe)">
+                    <i data-lucide="grid" class="w-3 h-3 sm:w-3.5 sm:h-3.5"></i>
+                    <span class="hidden xs:inline">Wireframe</span>
                   </button>
-                  <button id="app-btn-fullscreen" class="btn-secondary text-xs px-2.5 py-1" title="Layar Penuh">
-                    <i data-lucide="expand" class="w-3.5 h-3.5"></i>
+                  <button id="app-btn-fullscreen" class="btn-secondary text-[0.7rem] sm:text-xs px-2 sm:px-2.5 py-1" title="Layar Penuh">
+                    <i data-lucide="expand" class="w-3 h-3 sm:w-3.5 sm:h-3.5"></i>
                   </button>
                 </div>
               </div>
 
-              <!-- Main Canvas Area -->
-              <div class="relative w-full h-[520px] bg-radial-cad overflow-hidden">
+              <!-- Main Canvas Area (Tinggi adaptif: 360px di HP agar ada ruang scroll halaman) -->
+              <div class="relative w-full h-[360px] sm:h-[440px] lg:h-[520px] bg-radial-cad overflow-hidden">
                 
                 <!-- View Cube di Kanan Atas -->
                 <div id="app-viewcube" class="view-cube-widget">
-                  <div class="text-[0.55rem] font-mono font-bold text-[#8fa89b] mb-1">VIEW CUBE</div>
+                  <div class="text-[0.5rem] font-mono font-bold text-[#8fa89b] mb-0.5">VIEW CUBE</div>
                   <div class="cube-compass">
                     <button class="cube-btn" data-view="TOP">TOP</button>
                     <button class="cube-btn active" data-view="ISO">ISO</button>
@@ -543,65 +552,82 @@
                 <!-- Three.js Canvas -->
                 <div id="app-cad-canvas" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
 
-                <!-- Bottom Floating Controls: Section Toggle + X/Y/Z Axes + Offset Slider -->
-                <div class="absolute bottom-3 left-3 right-3 flex flex-wrap items-center justify-between gap-2 pointer-events-none">
-                  
-                  <div class="flex items-center gap-2 bg-[#0a1410]/90 backdrop-blur p-1.5 rounded-xl border border-[#1f3a2e] pointer-events-auto">
-                    <!-- Tombol Toggle Section Potongan -->
-                    <button id="app-btn-section" class="btn-secondary text-xs px-3 py-1 flex items-center gap-1.5">
-                      <i data-lucide="scissors" class="w-3.5 h-3.5"></i>
-                      <span>Section</span>
-                    </button>
+                <!-- Bottom Floating Controls: Section Toggle + X/Y/Z Axes + Offset Slider (Responsive Multi-Row) -->
+                <div class="absolute bottom-2.5 left-2.5 right-2.5 pointer-events-none">
+                  <div class="flex flex-col gap-2 pointer-events-auto max-w-full">
+                    
+                    <!-- Row 1: Section Button + Axis Selector (X, Y, Z) -->
+                    <div class="flex items-center justify-between gap-2">
+                      <div class="flex items-center gap-1.5 bg-[#0a1410]/95 backdrop-blur-md p-1.5 rounded-xl border border-[#1f3a2e] shadow-lg">
+                        <!-- Tombol Toggle Section Potongan -->
+                        <button id="app-btn-section" class="btn-secondary text-xs px-2.5 sm:px-3 py-1 flex items-center gap-1.5 transition-all">
+                          <i data-lucide="scissors" class="w-3.5 h-3.5"></i>
+                          <span>Section</span>
+                        </button>
 
-                    <!-- Kontrol Sumbu Potongan (X, Y, Z + Slider) -->
-                    <div id="app-section-controls" class="hidden flex items-center gap-2 pl-2 border-l border-[#1f3a2e]">
-                      <span class="text-[0.7rem] font-mono text-[#8fa89b]">Sumbu:</span>
-                      <button id="app-sec-axis-x" data-axis="x" class="axis-btn-x text-xs px-2.5 py-0.5 font-mono font-bold rounded border transition-all flex items-center gap-1 bg-[#ff5252]/15 text-[#ff5252] border-[#ff5252]/40 hover:bg-[#ff5252]/30 active:scale-95" title="Potong Sumbu X (Garis Merah)">
-                        <span class="w-2 h-2 rounded-full bg-[#ff5252] inline-block shadow-[0_0_6px_#ff5252]"></span>X
-                      </button>
-                      <button id="app-sec-axis-y" data-axis="y" class="axis-btn-y text-xs px-2.5 py-0.5 font-mono font-bold rounded border transition-all flex items-center gap-1 bg-[#00e676]/15 text-[#00e676] border-[#00e676]/40 hover:bg-[#00e676]/30 active:scale-95" title="Potong Sumbu Y (Garis Hijau)">
-                        <span class="w-2 h-2 rounded-full bg-[#00e676] inline-block shadow-[0_0_6px_#00e676]"></span>Y
-                      </button>
-                      <button id="app-sec-axis-z" data-axis="z" class="axis-btn-z text-xs px-2.5 py-0.5 font-mono font-bold rounded border transition-all flex items-center gap-1 bg-[#2979ff]/15 text-[#2979ff] border-[#2979ff]/40 hover:bg-[#2979ff]/30 active:scale-95" title="Potong Sumbu Z (Garis Biru)">
-                        <span class="w-2 h-2 rounded-full bg-[#2979ff] inline-block shadow-[0_0_6px_#2979ff]"></span>Z
-                      </button>
-                      
-                      <div class="flex items-center gap-1.5 pl-1.5 border-l border-[#1f3a2e]/80">
-                        <span class="text-[0.65rem] font-mono text-[#8fa89b]">Offset:</span>
-                        <input id="app-section-slider" type="range" min="-3.2" max="3.2" step="0.1" value="0" class="w-20 accent-[#ff5252] cursor-pointer" title="Geser bidang potong">
-                        <span id="app-section-offset-val" class="text-[0.68rem] font-mono text-[#ff5252] font-bold min-w-[28px]">0.0</span>
+                        <!-- Kontrol Sumbu Potongan (X, Y, Z) -->
+                        <div id="app-section-axes" class="hidden flex items-center gap-1 pl-1.5 border-l border-[#1f3a2e]">
+                          <span class="text-[0.65rem] font-mono text-[#8fa89b] hidden sm:inline">Sumbu:</span>
+                          <button id="app-sec-axis-x" data-axis="x" class="axis-btn-x text-xs px-2 py-0.5 font-mono font-bold rounded border transition-all flex items-center gap-1 bg-[#ff5252]/15 text-[#ff5252] border-[#ff5252]/40" title="Potong Sumbu X (Merah)">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#ff5252] inline-block shadow-[0_0_5px_#ff5252]"></span>X
+                          </button>
+                          <button id="app-sec-axis-y" data-axis="y" class="axis-btn-y text-xs px-2 py-0.5 font-mono font-bold rounded border transition-all flex items-center gap-1 bg-[#00e676]/15 text-[#00e676] border-[#00e676]/40" title="Potong Sumbu Y (Hijau)">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#00e676] inline-block shadow-[0_0_5px_#00e676]"></span>Y
+                          </button>
+                          <button id="app-sec-axis-z" data-axis="z" class="axis-btn-z text-xs px-2 py-0.5 font-mono font-bold rounded border transition-all flex items-center gap-1 bg-[#2979ff]/15 text-[#2979ff] border-[#2979ff]/40" title="Potong Sumbu Z (Biru)">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#2979ff] inline-block shadow-[0_0_5px_#2979ff]"></span>Z
+                          </button>
+                        </div>
+                      </div>
+
+                      <!-- Petunjuk Desktop -->
+                      <div class="hidden md:flex items-center gap-2 text-[0.65rem] font-mono bg-[#0a1410]/90 backdrop-blur px-2.5 py-1 rounded-lg border border-[#1f3a2e] text-[#8fa89b]">
+                        <span>Klik-Tarik: Putar • Scroll: Zoom</span>
                       </div>
                     </div>
-                  </div>
 
-                  <div class="hidden sm:flex items-center gap-2.5 text-[0.68rem] font-mono bg-[#0a1410]/85 backdrop-blur px-3 py-1 rounded-lg border border-[#1f3a2e] text-[#8fa89b]">
-                    <span class="flex items-center gap-1 text-[#ff5252] font-semibold"><span class="w-2 h-2 rounded-full bg-[#ff5252] inline-block shadow-[0_0_5px_#ff5252]"></span>X (Merah)</span>
-                    <span class="flex items-center gap-1 text-[#00e676] font-semibold"><span class="w-2 h-2 rounded-full bg-[#00e676] inline-block shadow-[0_0_5px_#00e676]"></span>Y (Hijau)</span>
-                    <span class="flex items-center gap-1 text-[#2979ff] font-semibold"><span class="w-2 h-2 rounded-full bg-[#2979ff] inline-block shadow-[0_0_5px_#2979ff]"></span>Z (Biru)</span>
-                    <span class="text-[#3d5a4d]">|</span>
-                    <span>Klik-Tarik: Putar • Scroll: Zoom</span>
+                    <!-- Row 2: Dedicated Section Offset Slider (Muncul saat Section Aktif, Ramah Layar HP) -->
+                    <div id="app-section-slider-row" class="hidden bg-[#0a1410]/95 backdrop-blur-md px-3 py-2 rounded-xl border border-[#1f3a2e] shadow-xl flex items-center gap-2.5 w-full max-w-sm">
+                      <span class="text-[0.68rem] font-mono text-[#8fa89b] shrink-0">Offset:</span>
+                      <input id="app-section-slider" type="range" min="-3.2" max="3.2" step="0.1" value="0" class="flex-1 accent-[#ff5252] cursor-pointer h-2 bg-[#12201a] rounded-lg touch-none" title="Geser bidang potong">
+                      <span id="app-section-offset-val" class="text-[0.72rem] font-mono text-[#ff5252] font-bold min-w-[32px] text-right">0.0</span>
+                    </div>
+
                   </div>
                 </div>
 
               </div>
 
-              <!-- Panel Bawah Viewer: Material Preset Selector -->
-              <div class="p-3.5 bg-[#0a1410] border-t border-[#1f3a2e] flex flex-wrap items-center justify-between gap-3">
-                <div class="flex items-center gap-2">
-                  <span class="text-xs font-mono text-[#8fa89b]">Preset Material:</span>
-                  <div id="app-material-chips" class="flex flex-wrap items-center gap-1.5">
-                    <button data-mat="steel" class="mat-chip cad-chip cad-chip-interactive text-xs px-2.5 py-1">Baja</button>
-                    <button data-mat="alloy" class="mat-chip cad-chip cad-chip-interactive active text-xs px-2.5 py-1">Alloy</button>
-                    <button data-mat="castiron" class="mat-chip cad-chip cad-chip-interactive text-xs px-2.5 py-1">Besi Cor</button>
-                    <button data-mat="brass" class="mat-chip cad-chip cad-chip-interactive text-xs px-2.5 py-1">Kuningan</button>
-                    <button data-mat="carbon" class="mat-chip cad-chip cad-chip-interactive text-xs px-2.5 py-1">Carbon</button>
-                    <button data-mat="chrome" class="mat-chip cad-chip cad-chip-interactive text-xs px-2.5 py-1">Chrome</button>
-                  </div>
+              <!-- Panel Bawah Viewer: Material Preset Selector (Horizontal scrollable) -->
+              <div class="p-3 bg-[#0a1410] border-t border-[#1f3a2e] flex items-center gap-2 sm:gap-3 overflow-hidden">
+                <span class="text-xs font-mono text-[#8fa89b] shrink-0">Material:</span>
+                <div id="app-material-chips" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 flex-1 scroll-smooth">
+                  <button data-mat="steel" class="mat-chip cad-chip cad-chip-interactive text-xs px-2.5 py-1 shrink-0">Baja</button>
+                  <button data-mat="alloy" class="mat-chip cad-chip cad-chip-interactive active text-xs px-2.5 py-1 shrink-0">Alloy</button>
+                  <button data-mat="castiron" class="mat-chip cad-chip cad-chip-interactive text-xs px-2.5 py-1 shrink-0">Besi Cor</button>
+                  <button data-mat="brass" class="mat-chip cad-chip cad-chip-interactive text-xs px-2.5 py-1 shrink-0">Kuningan</button>
+                  <button data-mat="carbon" class="mat-chip cad-chip cad-chip-interactive text-xs px-2.5 py-1 shrink-0">Carbon</button>
+                  <button data-mat="chrome" class="mat-chip cad-chip cad-chip-interactive text-xs px-2.5 py-1 shrink-0">Chrome</button>
                 </div>
               </div>
 
             </div>
 
+            <!-- Petunjuk Scroll Ramah Mobile -->
+            <div class="mt-2 text-center text-[0.68rem] font-mono text-[#627b70] block sm:hidden">
+              👆 Geser di luar kotak 3D untuk menggulir halaman
+            </div>
+          </div>
+
+          <!-- Kolom 2 (Desktop Kiri, Mobile Bawah): Daftar Komponen CAD (10 Part) -->
+          <div class="lg:col-span-4 order-2 lg:order-1 bg-[#0d1a14] border border-[#1f3a2e] rounded-2xl p-4 lg:max-h-[610px] lg:overflow-y-auto">
+            <div class="text-xs font-mono font-bold uppercase text-[#8fa89b] mb-3 flex items-center justify-between">
+              <span>Daftar Komponen CAD (10 Part)</span>
+              <span class="text-[#00e676]">Pilih Part</span>
+            </div>
+            <div id="parts3d-sidebar-list" class="space-y-2">
+              <!-- Rendered via JS -->
+            </div>
           </div>
 
         </div>
@@ -609,6 +635,26 @@
       </section>
 
     </main>
+
+    <!-- ======================================================================
+         MOBILE BOTTOM NAVIGATION BAR (Dock Bawah Khusus Smartphone < md)
+         ====================================================================== -->
+    <nav id="mobile-bottom-nav" class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#0a1410]/95 backdrop-blur-xl border-t border-[#1f3a2e] px-3 py-1.5 shadow-[0_-8px_25px_rgba(0,0,0,0.6)]">
+      <div class="grid grid-cols-3 gap-2 max-w-sm mx-auto">
+        <button data-tab="parts3d" class="app-nav-tab mobile-nav-item active">
+          <i data-lucide="box" class="mobile-nav-icon"></i>
+          <span class="mobile-nav-label">Part 3D</span>
+        </button>
+        <button data-tab="jobsheets" class="app-nav-tab mobile-nav-item">
+          <i data-lucide="file-spreadsheet" class="mobile-nav-icon"></i>
+          <span class="mobile-nav-label">Jobsheet</span>
+        </button>
+        <button data-tab="features" class="app-nav-tab mobile-nav-item">
+          <i data-lucide="book-open" class="mobile-nav-icon"></i>
+          <span class="mobile-nav-label">Fitur</span>
+        </button>
+      </div>
+    </nav>
   </div>
 
   <!-- ==========================================================================

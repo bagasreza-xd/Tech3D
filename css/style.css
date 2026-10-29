@@ -859,3 +859,80 @@ h1, h2, h3, h4, h5, h6 {
     display: none;
   }
 }
+
+/* Utility to hide scrollbars while allowing touch horizontal scrolling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ==========================================================================
+   MOBILE BOTTOM NAVIGATION BAR
+   ========================================================================== */
+#mobile-bottom-nav {
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 0.25rem;
+  border-radius: 12px;
+  color: var(--text-muted);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  user-select: none;
+}
+
+.mobile-nav-item i,
+.mobile-nav-item svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.mobile-nav-item span {
+  font-size: 0.68rem;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  margin-top: 0.2rem;
+  letter-spacing: 0.01em;
+}
+
+.mobile-nav-item:active {
+  transform: scale(0.94);
+}
+
+.mobile-nav-item.active {
+  color: var(--accent-neon);
+  background: rgba(0, 230, 118, 0.12);
+  border-color: rgba(0, 230, 118, 0.3);
+}
+
+.mobile-nav-item.active i,
+.mobile-nav-item.active svg {
+  transform: translateY(-1px);
+  filter: drop-shadow(0 0 6px rgba(0, 230, 118, 0.6));
+}
+
+.mobile-nav-item.active span {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+@media (max-width: 640px) {
+  .view-cube-widget {
+    transform: scale(0.78);
+    transform-origin: top right;
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+}
+
