@@ -487,13 +487,6 @@ function renderJobsheets() {
             <i data-lucide="file-text" class="w-3 h-3 text-[#00e5ff]"></i>
             <span>${lkm.filename}</span>
           </div>
-
-
-
-          <!-- Bottom Right: ISO Standard -->
-          <div class="absolute bottom-3 right-3 z-20 bg-[#12201a]/90 backdrop-blur border border-[#1f3a2e] px-2 py-0.5 rounded text-[0.7rem] font-mono text-[#a3b8ad]">
-            ${lkm.standard}
-          </div>
         </div>
 
         <div class="p-3.5 bg-[#0a1410] border-t border-[#1f3a2e]/60 flex items-center">
@@ -747,7 +740,8 @@ function openLKMModal(lkmId) {
 
   document.getElementById('modal-lkm-title').textContent = `${lkm.number} (${lkm.filename}): ${lkm.title}`;
   document.getElementById('modal-lkm-subtitle').textContent = lkm.subtitle;
-  document.getElementById('modal-lkm-standard').textContent = `Standar: ${lkm.standard}`;
+  const modalStandard = document.getElementById('modal-lkm-standard');
+  if (modalStandard) modalStandard.textContent = `Standar: ${lkm.standard}`;
   document.getElementById('modal-lkm-material').textContent = lkm.sheetSpecs.material || 'Mild Steel';
   document.getElementById('modal-lkm-tolerance').textContent = lkm.sheetSpecs.tolerance || 'ISO 2768-m';
 
